@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 100 Filipino Collagen-Rich Foods</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+
+        .header .date {
+            font-size: 0.9em;
+            opacity: 0.85;
+            font-style: italic;
+        }
+
+        .controls {
+            padding: 30px 40px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .control-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .control-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: #495057;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .price-btn {
+            border-color: #28a745;
+            color: #28a745;
+        }
+
+        .price-btn.active {
+            background: #28a745;
+            color: white;
+        }
+
+        .price-btn:hover {
+            background: #28a745;
+            color: white;
+        }
+
+        .stats {
+            padding: 20px 40px;
+            background: #e3f2fd;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1976d2;
+        }
+
+        .stat-label {
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .table-container {
+            padding: 40px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            padding: 18px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.3s;
+        }
+
+        th:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        th::after {
+            content: ' ⇅';
+            opacity: 0.5;
+        }
+
+        td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 14px;
+        }
+
+        tbody tr {
+            transition: all 0.3s;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+            transform: scale(1.005);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .rank {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 16px;
+        }
+
+        .rank.top-10 {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 18px;
+        }
+
+        .food-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .collagen-level {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .very-high {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .high {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .moderate {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .price-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .budget {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .moderate-price {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .premium {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            background: #e9ecef;
+            color: #495057;
+            margin: 2px;
+        }
+
+        .nutrition {
+            font-size: 12px;
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        .nutrition-item {
+            margin: 3px 0;
+        }
+
+        .nutrition-label {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .benefits {
+            font-size: 13px;
+            color: #6c757d;
+            line-height: 1.4;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+
+            .container {
+                border-radius: 0;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.6em;
+            }
+
+            .header p {
+                font-size: 0.95em;
+            }
+
+            .controls {
+                padding: 20px 15px;
+            }
+
+            .control-row {
+                gap: 15px;
+                margin-bottom: 15px;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+
+            .filter-group {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .filter-btn {
+                flex: 1;
+                min-width: 70px;
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            .stats {
+                padding: 15px 20px;
+                gap: 15px;
+            }
+
+            .stat-value {
+                font-size: 1.8em;
+            }
+
+            .stat-label {
+                font-size: 13px;
+            }
+
+            .table-container {
+                padding: 0;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            thead, tbody, tr {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+            }
+
+            th, td {
+                padding: 12px 8px;
+                font-size: 12px;
+            }
+
+            th:nth-child(1), td:nth-child(1) { width: 50px; }
+            th:nth-child(2), td:nth-child(2) { width: 180px; }
+            th:nth-child(3), td:nth-child(3) { width: 100px; }
+            th:nth-child(4), td:nth-child(4) { width: 100px; }
+            th:nth-child(5), td:nth-child(5) { width: 100px; }
+            th:nth-child(6), td:nth-child(6) { width: 140px; }
+            th:nth-child(7), td:nth-child(7) { width: 200px; }
+
+            th {
+                white-space: normal;
+                word-wrap: break-word;
+                line-height: 1.2;
+                font-size: 11px;
+            }
+
+            .food-name {
+                font-size: 13px;
+                white-space: normal;
+                word-wrap: break-word;
+            }
+
+            .benefits {
+                font-size: 11px;
+                white-space: normal;
+                word-wrap: break-word;
+                line-height: 1.3;
+            }
+
+            .nutrition {
+                font-size: 10px;
+            }
+
+            .collagen-level, .price-tag {
+                font-size: 10px;
+                padding: 4px 8px;
+            }
+
+            .category-tag {
+                font-size: 9px;
+                padding: 3px 6px;
+            }
+
+            .rank {
+                font-size: 14px;
+            }
+
+            .rank.top-10 {
+                font-size: 15px;
+            }
+
+            .no-results {
+                padding: 40px 20px;
+                font-size: 16px;
+            }
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .scroll-top {
+                width: 45px;
+                height: 45px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🥘 Top 100 Filipino Collagen-Rich Foods</h1>
+            <p>Boost your skin, joints, and overall health with these traditional Filipino superfoods</p>
+            <p class="date">💰 Prices updated: December 2025 (Metro Manila)</p>
+        </div>
+
+        <div class="controls">
+            <div class="control-row">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search for foods...">
+                </div>
+            </div>
+            
+            <div class="control-row">
+                <span class="filter-label">Collagen Level:</span>
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="very-high">Very High</button>
+                    <button class="filter-btn" data-filter="high">High</button>
+                    <button class="filter-btn" data-filter="moderate">Moderate</button>
+                </div>
+            </div>
+
+            <div class="control-row">
+                <span class="filter-label">Price Range:</span>
+                <div class="filter-group">
+                    <button class="filter-btn price-btn active" data-price="all">All Prices</button>
+                    <button class="filter-btn price-btn" data-price="budget">Budget (₱50-150)</button>
+                    <button class="filter-btn price-btn" data-price="moderate-price">Moderate (₱150-300)</button>
+                    <button class="filter-btn price-btn" data-price="premium">Premium (₱300+)</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="totalFoods">100</div>
+                <div class="stat-label">Total Foods</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="visibleFoods">100</div>
+                <div class="stat-label">Showing</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">₱180</div>
+                <div class="stat-label">Avg Price/Serving</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">15</div>
+                <div class="stat-label">Categories</div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="foodTable">
+                <thead>
+                    <tr>
+                        <th data-sort="rank">Rank</th>
+                        <th data-sort="name">Food Name</th>
+                        <th data-sort="level">Collagen</th>
+                        <th data-sort="price">Price</th>
+                        <th data-sort="category">Category</th>
+                        <th>Nutrition (per 100g)</th>
+                        <th>Health Benefits</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be inserted here -->
+                </tbody>
+            </table>
+            <div id="noResults" class="no-results" style="display: none;">
+                No foods found matching your search criteria.
+            </div>
+        </div>
+    </div>
+
+    <button class="scroll-top" id="scrollTop">↑</button>
+
+    <script>
+        // Comprehensive Filipino collagen-rich foods database with prices and nutrition
+        const collagenFoods = [
+            { rank: 1, name: "Bulalo (Beef Bone Marrow Soup)", level: "very-high", price: 280, priceRange: "moderate-price", category: "Bone Broth", protein: 28, calories: 350, vitamins: "B12, Iron, Zinc", benefits: "Rich in type I & III collagen, supports joint health, improves skin elasticity" },
+            { rank: 2, name: "Chicken Feet (Adidas)", level: "very-high", price: 95, priceRange: "budget", category: "Poultry", protein: 19, calories: 215, vitamins: "Calcium, Glucosamine", benefits: "High collagen content, glucosamine for joints, improves skin texture" },
+            { rank: 3, name: "Pork Skin (Chicharon)", level: "very-high", price: 120, priceRange: "budget", category: "Pork", protein: 61, calories: 544, vitamins: "Protein, Niacin", benefits: "Pure collagen source, supports connective tissue, enhances skin firmness" },
+            { rank: 4, name: "Fish Skin (Crispy Tilapia/Bangus)", level: "very-high", price: 150, priceRange: "moderate-price", category: "Seafood", protein: 24, calories: 201, vitamins: "Omega-3, Vitamin D", benefits: "Marine collagen, easily absorbed, omega-3 fatty acids" },
+            { rank: 5, name: "Beef Tendon (Litid)", level: "very-high", price: 185, priceRange: "moderate-price", category: "Beef", protein: 36, calories: 151, vitamins: "Iron, Selenium", benefits: "Type I collagen, strengthens tendons and ligaments" },
+            { rank: 6, name: "Chicken Skin", level: "very-high", price: 80, priceRange: "budget", category: "Poultry", protein: 15, calories: 454, vitamins: "Vitamin B6, Niacin", benefits: "Collagen-rich, supports skin health, contains healthy fats" },
+            { rank: 7, name: "Pata Tim (Braised Pork Leg)", level: "very-high", price: 320, priceRange: "premium", category: "Pork", protein: 22, calories: 378, vitamins: "Iron, B12, Zinc", benefits: "Collagen from skin and connective tissue, iron content" },
+            { rank: 8, name: "Dinuguan (Pork Blood Stew)", level: "very-high", price: 140, priceRange: "budget", category: "Offal", protein: 18, calories: 269, vitamins: "Iron, B12, Folate", benefits: "Organ meats rich in collagen, iron-rich, vitamin B12" },
+            { rank: 9, name: "Crispy Pata Skin", level: "very-high", price: 350, priceRange: "premium", category: "Pork", protein: 28, calories: 425, vitamins: "Collagen, Protein", benefits: "Concentrated collagen, supports joint flexibility" },
+            { rank: 10, name: "Oxtail (Kare-Kare)", level: "very-high", price: 420, priceRange: "premium", category: "Beef", protein: 30, calories: 262, vitamins: "Iron, B12, Gelatin", benefits: "Gelatin-rich, supports gut health, anti-inflammatory" },
+            { rank: 11, name: "Tinola (Chicken Soup with Bone)", level: "high", price: 165, priceRange: "moderate-price", category: "Bone Broth", protein: 20, calories: 188, vitamins: "Vitamin A, Potassium", benefits: "Collagen peptides, immune support, hydration" },
+            { rank: 12, name: "Sinigang na Bangus Belly", level: "high", price: 240, priceRange: "moderate-price", category: "Seafood", protein: 22, calories: 289, vitamins: "Omega-3, Vitamin C", benefits: "Omega-3, marine collagen, antioxidants from tamarind" },
+            { rank: 13, name: "Lechon Skin", level: "very-high", price: 380, priceRange: "premium", category: "Pork", protein: 32, calories: 518, vitamins: "Protein, Niacin", benefits: "High collagen density, crispy texture preserves nutrients" },
+            { rank: 14, name: "Chicken Gizzard", level: "high", price: 110, priceRange: "budget", category: "Offal", protein: 18, calories: 154, vitamins: "Iron, Zinc, B12", benefits: "Collagen, protein-rich, supports digestive health" },
+            { rank: 15, name: "Beef Tripe (Goto)", level: "high", price: 155, priceRange: "moderate-price", category: "Offal", protein: 12, calories: 94, vitamins: "Zinc, B12, Selenium", benefits: "Collagen, zinc, supports gut lining" },
+            { rank: 16, name: "Fish Head Soup (Sinigang)", level: "high", price: 180, priceRange: "moderate-price", category: "Seafood", protein: 19, calories: 156, vitamins: "DHA, Vitamin D, B12", benefits: "Marine collagen, DHA, vitamin D" },
+            { rank: 17, name: "Pig's Ear", level: "very-high", price: 135, priceRange: "budget", category: "Pork", protein: 22, calories: 234, vitamins: "Collagen, Iron", benefits: "Cartilage collagen, chewy texture indicates collagen" },
+            { rank: 18, name: "Chicken Liver", level: "moderate", price: 95, priceRange: "budget", category: "Offal", protein: 17, calories: 119, vitamins: "Vitamin A, Iron, Folate", benefits: "Vitamin A, iron, supports collagen synthesis" },
+            { rank: 19, name: "Beef Liver", level: "moderate", price: 160, priceRange: "moderate-price", category: "Offal", protein: 20, calories: 135, vitamins: "Vitamin A, C, Copper", benefits: "Vitamin A & C, copper for collagen production" },
+            { rank: 20, name: "Lapu-Lapu (Grouper) Skin", level: "high", price: 320, priceRange: "premium", category: "Seafood", protein: 21, calories: 118, vitamins: "Omega-3, Selenium", benefits: "Type I marine collagen, low mercury" },
+            { rank: 21, name: "Tuyo (Dried Fish)", level: "high", price: 85, priceRange: "budget", category: "Seafood", protein: 26, calories: 196, vitamins: "Calcium, Omega-3", benefits: "Concentrated collagen, calcium from bones" },
+            { rank: 22, name: "Danggit (Dried Rabbitfish)", level: "high", price: 140, priceRange: "budget", category: "Seafood", protein: 24, calories: 185, vitamins: "Calcium, Vitamin D", benefits: "Whole fish collagen, omega-3, calcium" },
+            { rank: 23, name: "Chicken Cartilage", level: "very-high", price: 70, priceRange: "budget", category: "Poultry", protein: 15, calories: 107, vitamins: "Glucosamine, Chondroitin", benefits: "Type II collagen, supports joint health" },
+            { rank: 24, name: "Pig's Feet (Pata)", level: "very-high", price: 145, priceRange: "budget", category: "Pork", protein: 23, calories: 259, vitamins: "Collagen, Iron", benefits: "Gelatin-rich, improves skin hydration" },
+            { rank: 25, name: "Bagnet (Crispy Pork Belly)", level: "high", price: 295, priceRange: "moderate-price", category: "Pork", protein: 18, calories: 518, vitamins: "Protein, B Vitamins", benefits: "Skin collagen, traditional Ilocano dish" },
+            { rank: 26, name: "Beef Shank (Nilagang Baka)", level: "high", price: 265, priceRange: "moderate-price", category: "Beef", protein: 26, calories: 201, vitamins: "Iron, Zinc, B12", benefits: "Connective tissue collagen, minerals" },
+            { rank: 27, name: "Chicken Neck", level: "high", price: 65, priceRange: "budget", category: "Poultry", protein: 16, calories: 223, vitamins: "Calcium, Iron", benefits: "Skin and cartilage collagen, affordable source" },
+            { rank: 28, name: "Fish Bone Broth", level: "high", price: 125, priceRange: "budget", category: "Bone Broth", protein: 14, calories: 86, vitamins: "Calcium, Phosphorus", benefits: "Marine collagen, calcium, phosphorus" },
+            { rank: 29, name: "Pork Intestine (Isaw)", level: "moderate", price: 90, priceRange: "budget", category: "Offal", protein: 11, calories: 196, vitamins: "B12, Iron", benefits: "Collagen in lining, vitamin B12" },
+            { rank: 30, name: "Chicken Wings", level: "high", price: 185, priceRange: "moderate-price", category: "Poultry", protein: 19, calories: 203, vitamins: "Protein, B Vitamins", benefits: "Skin and cartilage collagen, protein" },
+            { rank: 31, name: "Beef Tongue (Lengua)", level: "high", price: 380, priceRange: "premium", category: "Beef", protein: 16, calories: 224, vitamins: "Zinc, Iron, B12", benefits: "Collagen-rich muscle, zinc, iron" },
+            { rank: 32, name: "Bangus (Milkfish) Belly", level: "high", price: 220, priceRange: "moderate-price", category: "Seafood", protein: 20, calories: 190, vitamins: "Omega-3, Vitamin D", benefits: "Omega-3, skin collagen, vitamin D" },
+            { rank: 33, name: "Chicken Bone Broth", level: "high", price: 135, priceRange: "budget", category: "Bone Broth", protein: 17, calories: 86, vitamins: "Minerals, Amino Acids", benefits: "Type II collagen, amino acids, minerals" },
+            { rank: 34, name: "Pork Hock", level: "very-high", price: 175, priceRange: "moderate-price", category: "Pork", protein: 25, calories: 285, vitamins: "Iron, Collagen", benefits: "Skin and tendon collagen, savory dishes" },
+            { rank: 35, name: "Beef Cheeks", level: "high", price: 310, priceRange: "premium", category: "Beef", protein: 24, calories: 209, vitamins: "Iron, B12", benefits: "Facial muscle collagen, tender meat" },
+            { rank: 36, name: "Maya-Maya (Red Snapper) Skin", level: "high", price: 290, priceRange: "moderate-price", category: "Seafood", protein: 22, calories: 128, vitamins: "Selenium, Omega-3", benefits: "Marine collagen, selenium" },
+            { rank: 37, name: "Chicken Back", level: "high", price: 75, priceRange: "budget", category: "Poultry", protein: 15, calories: 239, vitamins: "Calcium, Phosphorus", benefits: "Bone and cartilage collagen for broth" },
+            { rank: 38, name: "Pork Knuckle", level: "very-high", price: 195, priceRange: "moderate-price", category: "Pork", protein: 26, calories: 294, vitamins: "Collagen, Iron", benefits: "Joint collagen, German-Filipino cuisine" },
+            { rank: 39, name: "Beef Ribs", level: "high", price: 340, priceRange: "premium", category: "Beef", protein: 27, calories: 290, vitamins: "Iron, Zinc, B12", benefits: "Connective tissue between bones, flavorful" },
+            { rank: 40, name: "Squid (Pusit)", level: "moderate", price: 210, priceRange: "moderate-price", category: "Seafood", protein: 18, calories: 92, vitamins: "B12, Selenium", benefits: "Collagen in skin, vitamin B12, selenium" },
+            { rank: 41, name: "Fried Dilis (Anchovies)", level: "moderate", price: 95, priceRange: "budget", category: "Seafood", protein: 21, calories: 210, vitamins: "Calcium, Omega-3", benefits: "Whole fish collagen, calcium-rich" },
+            { rank: 42, name: "Chicken Heart", level: "moderate", price: 105, priceRange: "budget", category: "Offal", protein: 15, calories: 153, vitamins: "CoQ10, Iron", benefits: "CoQ10, supports collagen synthesis" },
+            { rank: 43, name: "Pork Tail", level: "high", price: 125, priceRange: "budget", category: "Pork", protein: 21, calories: 256, vitamins: "Collagen, Iron", benefits: "Skin and cartilage collagen, traditional use" },
+            { rank: 44, name: "Beef Lungs (Baga)", level: "moderate", price: 85, priceRange: "budget", category: "Offal", protein: 14, calories: 95, vitamins: "Iron, Vitamin B", benefits: "Organ collagen, iron, vitamin B" },
+            { rank: 45, name: "Tilapia Skin", level: "high", price: 120, priceRange: "budget", category: "Seafood", protein: 23, calories: 167, vitamins: "Omega-3, Collagen", benefits: "Sustainable marine collagen source" },
+            { rank: 46, name: "Chicken Broth (Sabaw)", level: "high", price: 95, priceRange: "budget", category: "Bone Broth", protein: 16, calories: 78, vitamins: "Electrolytes, Minerals", benefits: "Liquid collagen, electrolytes, hydrating" },
+            { rank: 47, name: "Pork Belly (Liempo)", level: "moderate", price: 235, priceRange: "moderate-price", category: "Pork", protein: 14, calories: 518, vitamins: "B Vitamins, Iron", benefits: "Some skin collagen, flavorful fat" },
+            { rank: 48, name: "Beef Brisket", level: "high", price: 385, priceRange: "premium", category: "Beef", protein: 28, calories: 291, vitamins: "Iron, Zinc, B12", benefits: "Connective tissue, slow-cooked benefits" },
+            { rank: 49, name: "Shrimp Shell Broth", level: "moderate", price: 140, priceRange: "budget", category: "Seafood", protein: 12, calories: 71, vitamins: "Chitin, Minerals", benefits: "Chitin and collagen-like compounds" },
+            { rank: 50, name: "Fried Galunggong (Mackerel)", level: "moderate", price: 110, priceRange: "budget", category: "Seafood", protein: 19, calories: 205, vitamins: "Omega-3, Vitamin D", benefits: "Skin collagen when eaten whole, omega-3" },
+            { rank: 51, name: "Pork Kidney", level: "moderate", price: 120, priceRange: "budget", category: "Offal", protein: 16, calories: 130, vitamins: "B12, Selenium", benefits: "Organ tissue, vitamin B12, selenium" },
+            { rank: 52, name: "Beef Heart", level: "moderate", price: 175, priceRange: "moderate-price", category: "Offal", protein: 17, calories: 112, vitamins: "CoQ10, B12", benefits: "CoQ10, supports cardiovascular collagen" },
+            { rank: 53, name: "Chicken Drumstick (with skin)", level: "high", price: 155, priceRange: "moderate-price", category: "Poultry", protein: 18, calories: 216, vitamins: "Iron, Zinc", benefits: "Dark meat with collagen-rich skin" },
+            { rank: 54, name: "Crab Shell Broth", level: "moderate", price: 185, priceRange: "moderate-price", category: "Seafood", protein: 13, calories: 89, vitamins: "Chitosan, Calcium", benefits: "Chitosan, minerals for collagen" },
+            { rank: 55, name: "Pork Ribs (with cartilage)", level: "high", price: 245, priceRange: "moderate-price", category: "Pork", protein: 22, calories: 277, vitamins: "Iron, B Vitamins", benefits: "Cartilage collagen, BBQ favorite" },
+            { rank: 56, name: "Chicken Thigh (with skin)", level: "high", price: 165, priceRange: "moderate-price", category: "Poultry", protein: 19, calories: 229, vitamins: "Iron, Zinc, B6", benefits: "Juicy with skin collagen" },
+            { rank: 57, name: "Salmon Skin", level: "high", price: 420, priceRange: "premium", category: "Seafood", protein: 24, calories: 208, vitamins: "Omega-3, Vitamin D", benefits: "Marine collagen, highest omega-3" },
+            { rank: 58, name: "Eggs (with membrane)", level: "moderate", price: 75, priceRange: "budget", category: "Poultry", protein: 13, calories: 143, vitamins: "Vitamin A, D, B12", benefits: "Eggshell membrane collagen, affordable" },
+            { rank: 59, name: "Pork Ears (Tenga)", level: "very-high", price: 110, priceRange: "budget", category: "Pork", protein: 20, calories: 234, vitamins: "Collagen, Iron", benefits: "Cartilage-rich, popular street food" },
+            { rank: 60, name: "Beef Stock", level: "high", price: 185, priceRange: "moderate-price", category: "Bone Broth", protein: 18, calories: 96, vitamins: "Minerals, Amino Acids", benefits: "Slow-simmered collagen extraction" },
+            { rank: 61, name: "Chicken Skin Cracklings", level: "very-high", price: 135, priceRange: "budget", category: "Poultry", protein: 22, calories: 492, vitamins: "Collagen, Protein", benefits: "Concentrated collagen, crispy texture" },
+            { rank: 62, name: "Lechon Kawali Skin", level: "high", price: 265, priceRange: "moderate-price", category: "Pork", protein: 26, calories: 465, vitamins: "Protein, Niacin", benefits: "Crispy pork belly skin, collagen-dense" },
+            { rank: 63, name: "Fish Roe (Itlog ng Isda)", level: "moderate", price: 195, priceRange: "moderate-price", category: "Seafood", protein: 24, calories: 143, vitamins: "Omega-3, Vitamin D", benefits: "Membrane collagen, omega-3, vitamin D" },
+            { rank: 64, name: "Duck Skin", level: "high", price: 220, priceRange: "moderate-price", category: "Poultry", protein: 16, calories: 404, vitamins: "B Vitamins, Iron", benefits: "Similar to chicken, richer flavor" },
+            { rank: 65, name: "Goat Meat (Kambing)", level: "moderate", price: 275, priceRange: "moderate-price", category: "Goat", protein: 27, calories: 143, vitamins: "Iron, B12, Zinc", benefits: "Lean with connective tissue collagen" },
+            { rank: 66, name: "Oysters", level: "moderate", price: 285, priceRange: "moderate-price", category: "Seafood", protein: 9, calories: 68, vitamins: "Zinc, B12, Iron", benefits: "Zinc for collagen synthesis, marine minerals" },
+            { rank: 67, name: "Mussels (Tahong)", level: "moderate", price: 125, priceRange: "budget", category: "Seafood", protein: 12, calories: 86, vitamins: "B12, Iron, Selenium", benefits: "Protein, zinc, vitamin B12" },
+            { rank: 68, name: "Clams (Halaan)", level: "moderate", price: 140, priceRange: "budget", category: "Seafood", protein: 13, calories: 74, vitamins: "Iron, Zinc, B12", benefits: "Iron, zinc supports collagen production" },
+            { rank: 69, name: "Chicken Leg Quarter", level: "high", price: 145, priceRange: "budget", category: "Poultry", protein: 18, calories: 232, vitamins: "Iron, Zinc, B6", benefits: "Skin, cartilage, dark meat combination" },
+            { rank: 70, name: "Pork Chop (with fat cap)", level: "moderate", price: 215, priceRange: "moderate-price", category: "Pork", protein: 21, calories: 231, vitamins: "B Vitamins, Iron", benefits: "Some connective tissue, protein" },
+            { rank: 71, name: "Beef Chuck Roast", level: "high", price: 325, priceRange: "premium", category: "Beef", protein: 26, calories: 250, vitamins: "Iron, Zinc, B12", benefits: "Marbled with collagen, slow-cook ideal" },
+            { rank: 72, name: "Sardines (with bones)", level: "moderate", price: 65, priceRange: "budget", category: "Seafood", protein: 25, calories: 208, vitamins: "Calcium, Omega-3, D", benefits: "Whole fish nutrition, calcium" },
+            { rank: 73, name: "Pork Sinew", level: "very-high", price: 145, priceRange: "budget", category: "Pork", protein: 32, calories: 142, vitamins: "Collagen, Iron", benefits: "Pure connective tissue, chewy texture" },
+            { rank: 74, name: "Chicken Collagen Soup", level: "high", price: 155, priceRange: "moderate-price", category: "Bone Broth", protein: 19, calories: 92, vitamins: "Minerals, Amino Acids", benefits: "Traditional healing soup, immune support" },
+            { rank: 75, name: "Beef Shin", level: "high", price: 295, priceRange: "moderate-price", category: "Beef", protein: 27, calories: 201, vitamins: "Iron, Zinc, B12", benefits: "Osso buco style, marrow and collagen" },
+            { rank: 76, name: "Pork Loin (with skin)", level: "moderate", price: 255, priceRange: "moderate-price", category: "Pork", protein: 22, calories: 242, vitamins: "B Vitamins, Iron", benefits: "Lean meat with skin collagen strip" },
+            { rank: 77, name: "Duck Tongue", level: "moderate", price: 195, priceRange: "moderate-price", category: "Poultry", protein: 14, calories: 178, vitamins: "Iron, B Vitamins", benefits: "Delicacy with cartilage, Chinese-Filipino" },
+            { rank: 78, name: "Beef Meatballs (with tendon)", level: "moderate", price: 185, priceRange: "moderate-price", category: "Beef", protein: 19, calories: 227, vitamins: "Iron, B12", benefits: "Ground with connective tissue" },
+            { rank: 79, name: "Chicken Sausage (with skin)", level: "moderate", price: 165, priceRange: "moderate-price", category: "Poultry", protein: 16, calories: 196, vitamins: "B Vitamins, Iron", benefits: "Processed but retains some collagen" },
+            { rank: 80, name: "Pork Barbecue (with fat)", level: "moderate", price: 145, priceRange: "budget", category: "Pork", protein: 17, calories: 294, vitamins: "B Vitamins, Iron", benefits: "Street food with connective bits" },
+            { rank: 81, name: "Tuna Skin", level: "moderate", price: 175, priceRange: "moderate-price", category: "Seafood", protein: 21, calories: 144, vitamins: "Omega-3, Selenium", benefits: "Large fish collagen, often discarded" },
+            { rank: 82, name: "Chicken Essence Soup", level: "moderate", price: 280, priceRange: "moderate-price", category: "Bone Broth", protein: 15, calories: 68, vitamins: "Amino Acids, Minerals", benefits: "Concentrated extract, wellness drink" },
+            { rank: 83, name: "Beef Gelatin Dessert", level: "high", price: 95, priceRange: "budget", category: "Processed", protein: 6, calories: 62, vitamins: "Collagen, Protein", benefits: "Pure gelatin from collagen, desserts" },
+            { rank: 84, name: "Pork Rinds (Plain)", level: "very-high", price: 125, priceRange: "budget", category: "Pork", protein: 61, calories: 544, vitamins: "Protein, Collagen", benefits: "Pure skin product, keto-friendly" },
+            { rank: 85, name: "Chicken Soup with Ginger", level: "moderate", price: 145, priceRange: "budget", category: "Bone Broth", protein: 18, calories: 102, vitamins: "Minerals, Gingerol", benefits: "Collagen with anti-inflammatory ginger" },
+            { rank: 86, name: "Beef Connective Tissue", level: "very-high", price: 165, priceRange: "moderate-price", category: "Beef", protein: 35, calories: 156, vitamins: "Collagen, Iron", benefits: "Pure collagen source, trim from cuts" },
+            { rank: 87, name: "Pork Neck Bones", level: "high", price: 115, priceRange: "budget", category: "Pork", protein: 20, calories: 267, vitamins: "Calcium, Iron", benefits: "Broth base, cartilage-rich" },
+            { rank: 88, name: "Duck Feet", level: "very-high", price: 155, priceRange: "moderate-price", category: "Poultry", protein: 19, calories: 215, vitamins: "Calcium, Glucosamine", benefits: "Similar to chicken feet, Chinese cuisine" },
+            { rank: 89, name: "Fish Collagen Powder", level: "high", price: 850, priceRange: "premium", category: "Processed", protein: 90, calories: 350, vitamins: "Pure Collagen", benefits: "Supplement from Filipino fish sources" },
+            { rank: 90, name: "Chicken Bone Meal", level: "moderate", price: 195, priceRange: "moderate-price", category: "Processed", protein: 45, calories: 380, vitamins: "Calcium, Phosphorus", benefits: "Ground bones, calcium and collagen" },
+            { rank: 91, name: "Pork Blood Cubes", level: "moderate", price: 85, priceRange: "budget", category: "Offal", protein: 18, calories: 105, vitamins: "Iron, B12", benefits: "Traditional ingredient, iron-rich" },
+            { rank: 92, name: "Beef Marrow Bones", level: "very-high", price: 245, priceRange: "moderate-price", category: "Beef", protein: 7, calories: 786, vitamins: "Collagen, Healthy Fats", benefits: "Roasted marrow, collagen in bone matrix" },
+            { rank: 93, name: "Chicken Wing Tips", level: "high", price: 75, priceRange: "budget", category: "Poultry", protein: 17, calories: 186, vitamins: "Calcium, Collagen", benefits: "Cartilage-dense, often discarded" },
+            { rank: 94, name: "Pork Trotters", level: "very-high", price: 145, priceRange: "budget", category: "Pork", protein: 23, calories: 259, vitamins: "Collagen, Iron", benefits: "Another term for feet, collagen-rich" },
+            { rank: 95, name: "Beef Collagen Peptides", level: "high", price: 920, priceRange: "premium", category: "Processed", protein: 88, calories: 360, vitamins: "Hydrolyzed Collagen", benefits: "Hydrolyzed for better absorption" },
+            { rank: 96, name: "Fish Skin Chips", level: "moderate", price: 165, priceRange: "moderate-price", category: "Processed", protein: 24, calories: 201, vitamins: "Collagen, Omega-3", benefits: "Snack made from fish skin" },
+            { rank: 97, name: "Chicken Broth Cubes", level: "moderate", price: 55, priceRange: "budget", category: "Processed", protein: 8, calories: 45, vitamins: "Sodium, Minerals", benefits: "Convenience product with some collagen" },
+            { rank: 98, name: "Pork Gelatin", level: "high", price: 185, priceRange: "moderate-price", category: "Processed", protein: 84, calories: 335, vitamins: "Pure Collagen", benefits: "Cooking ingredient from pork collagen" },
+            { rank: 99, name: "Beef Bone Broth Powder", level: "moderate", price: 475, priceRange: "premium", category: "Processed", protein: 38, calories: 280, vitamins: "Minerals, Amino Acids", benefits: "Dehydrated bone broth, convenient" },
+            { rank: 100, name: "Mixed Seafood Soup", level: "moderate", price: 225, priceRange: "moderate-price", category: "Seafood", protein: 16, calories: 124, vitamins: "Omega-3, Minerals", benefits: "Combination of marine collagen sources" }
+        ];
+
+        let filteredData = [...collagenFoods];
+        let currentSort = { column: 'rank', ascending: true };
+        let activeFilters = { level: 'all', price: 'all' };
+
+        // Initialize the table
+        function renderTable(data) {
+            const tbody = document.getElementById('tableBody');
+            const noResults = document.getElementById('noResults');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            
+            tbody.innerHTML = data.map(food => `
+                <tr>
+                    <td><span class="rank ${food.rank <= 10 ? 'top-10' : ''}">#${food.rank}</span></td>
+                    <td class="food-name">${food.name}</td>
+                    <td><span class="collagen-level ${food.level}">${food.level.replace('-', ' ').toUpperCase()}</span></td>
+                    <td><span class="price-tag ${food.priceRange}">₱${food.price}</span></td>
+                    <td><span class="category-tag">${food.category}</span></td>
+                    <td class="nutrition">
+                        <div class="nutrition-item"><span class="nutrition-label">Protein:</span> ${food.protein}g</div>
+                        <div class="nutrition-item"><span class="nutrition-label">Calories:</span> ${food.calories}</div>
+                        <div class="nutrition-item"><span class="nutrition-label">Vitamins:</span> ${food.vitamins}</div>
+                    </td>
+                    <td class="benefits">${food.benefits}</td>
+                </tr>
+            `).join('');
+
+            updateStats(data.length);
+        }
+
+        // Update statistics
+        function updateStats(count) {
+            document.getElementById('visibleFoods').textContent = count;
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            filteredData = collagenFoods.filter(food => {
+                const matchesSearch = food.name.toLowerCase().includes(searchTerm) ||
+                                    food.category.toLowerCase().includes(searchTerm) ||
+                                    food.benefits.toLowerCase().includes(searchTerm);
+                
+                const matchesLevel = activeFilters.level === 'all' || food.level === activeFilters.level;
+                const matchesPrice = activeFilters.price === 'all' || food.priceRange === activeFilters.price;
+                
+                return matchesSearch && matchesLevel && matchesPrice;
+            });
+            
+            renderTable(filteredData);
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+        // Collagen level filter
+        document.querySelectorAll('.filter-btn:not(.price-btn)').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn:not(.price-btn)').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                activeFilters.level = e.target.dataset.filter;
+                applyFilters();
+            });
+        });
+
+        // Price filter
+        document.querySelectorAll('.price-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.price-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                activeFilters.price = e.target.dataset.price;
+                applyFilters();
+            });
+        });
+
+        // Sorting functionality
+        document.querySelectorAll('th[data-sort]').forEach(th => {
+            th.addEventListener('click', () => {
+                const column = th.dataset.sort;
+                const ascending = currentSort.column === column ? !currentSort.ascending : true;
+                currentSort = { column, ascending };
+                
+                filteredData.sort((a, b) => {
+                    let valA, valB;
+                    
+                    if (column === 'rank') {
+                        valA = a.rank;
+                        valB = b.rank;
+                    } else if (column === 'name') {
+                        valA = a.name.toLowerCase();
+                        valB = b.name.toLowerCase();
+                    } else if (column === 'level') {
+                        const levels = { 'very-high': 3, 'high': 2, 'moderate': 1 };
+                        valA = levels[a.level];
+                        valB = levels[b.level];
+                    } else if (column === 'price') {
+                        valA = a.price;
+                        valB = b.price;
+                    } else if (column === 'category') {
+                        valA = a.category.toLowerCase();
+                        valB = b.category.toLowerCase();
+                    }
+                    
+                    if (valA < valB) return ascending ? -1 : 1;
+                    if (valA > valB) return ascending ? 1 : -1;
+                    return 0;
+                });
+                
+                renderTable(filteredData);
+            });
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Initial render
+        renderTable(filteredData);
+    </script>
+</body>
+</html>
